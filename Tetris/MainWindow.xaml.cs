@@ -40,7 +40,7 @@ namespace Tetris
                     };
                     Grid.SetRow(rectangle, i);
                     Grid.SetColumn(rectangle, j);
-
+                    //aksljdflkajsdf
                     GameGrid.Children.Add(rectangle);
                 }
             }
