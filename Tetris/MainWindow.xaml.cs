@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,21 +14,56 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tetris.Models;
 
 namespace Tetris
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
+    public enum Tetromino
+    {
+        IShape = 1,
+        OShape = 2,
+        TShape = 3,
+        JShape = 4,
+        LShape = 5,
+        SShape = 6,
+        ZShape = 7
+    }
     public partial class MainWindow : Window
     {
+<<<<<<< HEAD
+        Game game;
+        BlockSpawner blockSpawner;
+        public MainWindow()
+        {
+            game = new Game();
+            blockSpawner = new BlockSpawner();
+=======
         Models.Game game;
         public MainWindow()
         {
 
+>>>>>>> 3a3904a156186daf541cd3ff37cca32f81855e5d
             InitializeComponent();
             game = new Models.Game(20, 10);
             DrawGameGrid();
+            GameLoop();
+        }
+        public async void GameLoop()
+        {
+            
+            while (game.GetCurrentHeight() < 20)
+            {
+                blockSpawner.SpawnTetromino(game);
+                while (!game.IsReachedBottom())
+                {
+                    game.TransformCurrentCoordinates();
+                    await Task.Delay(50);
+                    DrawGameGrid();
+                }
+            }
+            DrawGameGrid();
+
         }
         public void DrawGameGrid()
         {
@@ -51,6 +88,21 @@ namespace Tetris
 
         }
         public Brush GetStrokeColor(int i, int j)
+<<<<<<< HEAD
+        {
+            int[,] gameGrid = game.GetGameGrid();
+            switch (gameGrid[i, j])
+            {
+                case 1: return Brushes.Cyan;
+                case 2: return Brushes.Yellow;
+                case 3: return Brushes.Purple;
+                case 4: return Brushes.Blue;
+                case 5: return Brushes.Orange;
+                case 6: return Brushes.Green;
+                case 7: return Brushes.Red;
+                default: return Brushes.Black;
+            }
+=======
         {
             switch (game.GetGameBoardUnit(i, j))
             {
@@ -69,7 +121,9 @@ namespace Tetris
             game.SpawnBlock();
             DrawGameGrid();
 
+>>>>>>> 3a3904a156186daf541cd3ff37cca32f81855e5d
         }
+
         public void ShowControls(object sender, RoutedEventArgs e)
         {
 
