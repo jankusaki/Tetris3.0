@@ -31,27 +31,19 @@ namespace Tetris
     }
     public partial class MainWindow : Window
     {
-<<<<<<< HEAD
         Game game;
         BlockSpawner blockSpawner;
         public MainWindow()
         {
             game = new Game();
             blockSpawner = new BlockSpawner();
-=======
-        Models.Game game;
-        public MainWindow()
-        {
-
->>>>>>> 3a3904a156186daf541cd3ff37cca32f81855e5d
             InitializeComponent();
-            game = new Models.Game(20, 10);
             DrawGameGrid();
             GameLoop();
         }
         public async void GameLoop()
         {
-            
+
             while (game.GetCurrentHeight() < 20)
             {
                 blockSpawner.SpawnTetromino(game);
@@ -72,8 +64,6 @@ namespace Tetris
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    
-                    
                     Rectangle rectangle = new Rectangle()
                     {
                         Stroke = Brushes.White,
@@ -88,7 +78,6 @@ namespace Tetris
 
         }
         public Brush GetStrokeColor(int i, int j)
-<<<<<<< HEAD
         {
             int[,] gameGrid = game.GetGameGrid();
             switch (gameGrid[i, j])
@@ -102,26 +91,6 @@ namespace Tetris
                 case 7: return Brushes.Red;
                 default: return Brushes.Black;
             }
-=======
-        {
-            switch (game.GetGameBoardUnit(i, j))
-            {
-                case 0: return Brushes.Cyan;
-                case 1: return Brushes.Blue;
-                case 2: return Brushes.Orange;
-                case 3: return Brushes.Yellow;
-                case 4: return Brushes.Green;
-                case 5: return Brushes.Red;
-                case 6: return Brushes.Purple;
-                default: return Brushes.Black;
-            }
-        }
-        public void StartGame(object sender, RoutedEventArgs e)
-        {
-            game.SpawnBlock();
-            DrawGameGrid();
-
->>>>>>> 3a3904a156186daf541cd3ff37cca32f81855e5d
         }
 
         public void ShowControls(object sender, RoutedEventArgs e)
