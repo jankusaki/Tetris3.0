@@ -18,53 +18,22 @@ using Tetris.Models;
 
 namespace Tetris
 {
-
-    public enum Tetromino
-    {
-        IShape = 1,
-        OShape = 2,
-        TShape = 3,
-        JShape = 4,
-        LShape = 5,
-        SShape = 6,
-        ZShape = 7
-    }
     public partial class MainWindow : Window
     {
-        Game game;
-        BlockSpawner blockSpawner;
         public MainWindow()
         {
-            game = new Game();
-            blockSpawner = new BlockSpawner();
             InitializeComponent();
-            DrawGameGrid();
-            GameLoop();
-        }
-        public async void GameLoop()
-        {
-
-            while (game.GetCurrentHeight() < 20)
-            {
-                blockSpawner.SpawnTetromino(game);
-                while (!game.IsReachedBottom())
-                {
-                    game.TransformCurrentCoordinates();
-                    await Task.Delay(50);
-                    DrawGameGrid();
-                }
-            }
-            DrawGameGrid();
-
+            this.PreviewKeyDown += HandleKeyPressEvent;
+            Task.Run(() => GameController.GameLoop(this));
         }
         public void DrawGameGrid()
         {
-
+            GameGrid.Children.Clear();
             for (int i = 0; i < 20; i++)
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    Rectangle rectangle = new Rectangle()
+                    Rectangle rectangle = new Rectangle
                     {
                         Stroke = Brushes.White,
                         StrokeThickness = 1,
@@ -77,10 +46,15 @@ namespace Tetris
             }
 
         }
+
+        public void ShowGameOverScreen()
+        {
+            ShowDialog();
+        }
         public Brush GetStrokeColor(int i, int j)
         {
-            int[,] gameGrid = game.GetGameGrid();
-            switch (gameGrid[i, j])
+            int[][] gameGrid = Game.GameGrid;
+            switch (gameGrid[i][j])
             {
                 case 1: return Brushes.Cyan;
                 case 2: return Brushes.Yellow;
@@ -100,6 +74,11 @@ namespace Tetris
         public void ExitApplication(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
+        }
+
+        private void HandleKeyPressEvent(object sender, KeyEventArgs e)
+        {
+            PlayerController.HandleInput(sender, e);
         }
     }
 }
