@@ -6,9 +6,9 @@ namespace Tetris.Models;
 public class Block
 {
     private List<int[]> blockCoordinates;
-    private BlockEnumeration blockType;
+    private BlockEnum blockType;
 
-    public Block(List<int[]> blockCoordinates, BlockEnumeration blockType)
+    public Block(List<int[]> blockCoordinates, BlockEnum blockType)
     {
         this.blockCoordinates = blockCoordinates;
         this.blockType = blockType;
@@ -20,7 +20,7 @@ public class Block
         set => blockCoordinates = value;
     }
 
-    public BlockEnumeration BlockType
+    public BlockEnum BlockType
     {
         get => blockType;
     }

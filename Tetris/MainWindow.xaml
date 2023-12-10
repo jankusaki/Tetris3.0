@@ -126,7 +126,7 @@
                 </StackPanel>
             </Grid>
             <StackPanel HorizontalAlignment="Center">
-                <Button Width="100" Padding="5"  Margin="5" Content="Pause"/>
+                <Button Click="PauseGame" Width="100" Padding="5"  Margin="5" Content="Pause"/>
                 <Button Click="ExitApplication"  Margin="5" Width="100"  Padding="5" Content="Exit"/>
             </StackPanel>
 

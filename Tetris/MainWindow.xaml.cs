@@ -56,20 +56,15 @@ namespace Tetris
             int[][] gameGrid = Game.GameGrid;
             switch (gameGrid[i][j])
             {
-                case 1: return Brushes.Cyan;
-                case 2: return Brushes.Yellow;
-                case 3: return Brushes.Purple;
-                case 4: return Brushes.Blue;
-                case 5: return Brushes.Orange;
-                case 6: return Brushes.Green;
-                case 7: return Brushes.Red;
+                case (int) BlockEnum.IShape: return Brushes.Cyan;
+                case (int) BlockEnum.JShape: return Brushes.Blue;
+                case (int) BlockEnum.LShape: return Brushes.Orange;
+                case (int) BlockEnum.OShape: return Brushes.Yellow;
+                case (int) BlockEnum.SShape: return Brushes.Green;
+                case (int) BlockEnum.TShape: return Brushes.Purple;
+                case (int) BlockEnum.ZShape: return Brushes.Red;
                 default: return Brushes.Black;
             }
-        }
-
-        public void ShowControls(object sender, RoutedEventArgs e)
-        {
-
         }
         public void ExitApplication(object sender, RoutedEventArgs e)
         {
@@ -79,6 +74,11 @@ namespace Tetris
         private void HandleKeyPressEvent(object sender, KeyEventArgs e)
         {
             PlayerController.HandleInput(sender, e);
+        }
+
+        private void PauseGame(object sender, RoutedEventArgs e)
+        {
+            GameController.PauseGame();
         }
     }
 }

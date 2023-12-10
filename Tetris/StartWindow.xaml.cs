@@ -22,5 +22,15 @@ namespace Tetris
         {
             Application.Current.Shutdown();
         }
+
+        public void ShowControls(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Controls:\n" +
+                            "Left Arrow: Move block left\n" +
+                            "Right Arrow: Move block right\n" +
+                            "Up Arrow: Rotate block\n" +
+                            "Down Arrow: Move block down\n" +
+                            "ESC: Exit game");
+        }
     }
 }

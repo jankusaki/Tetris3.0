@@ -16,7 +16,8 @@ public static class GameController
         Game.PrintBoard();
         do
         {
-            Block block = BlockGenerator.GenerateRandomBlock();
+            BlockFactory blockFactory = ChooseRandomBlockFactory();
+            Block block = blockFactory.CreateBlock();
             Game.UpdateBoard(block);
             Game.PrintBoard();
             PlayerController.block = block;
@@ -39,10 +40,30 @@ public static class GameController
 
     }
 
+    public static BlockFactory ChooseRandomBlockFactory()
+    {   
+        Random random = new Random();
+        int randomNumber = random.Next(0, 7);
+        switch (randomNumber)
+        {
+            case 0: return new IShapeBlockFactory();
+            case 1: return new JShapeBlockFactory();
+            case 2: return new LShapeBlockFactory();
+            case 3: return new OShapeBlockFactory();
+            case 4: return new SShapeBlockFactory();
+            case 5: return new TShapeBlockFactory();
+            case 6: return new ZShapeBlockFactory();
+            default: throw new Exception("Invalid random number");
+        }
+    }
     public static void UpdateUI()
     {
         window.Dispatcher.Invoke(() => 
             window.DrawGameGrid()
         );
+    }
+
+    public static void PauseGame()
+    {
     }
 }

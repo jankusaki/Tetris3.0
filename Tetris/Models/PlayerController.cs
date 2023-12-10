@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Windows.Input;
 using Tetris;
+using Tetris.Command;
 
 namespace Tetris.Models;
 
@@ -11,37 +12,25 @@ public static class PlayerController
 
     public static void HandleInput(object sender, KeyEventArgs e)
     {
+        Command.Command? command;
         switch (e.Key)
         {
             case Key.Left:
-                MoveBlockIfPossible(block.CanMoveLeft, block.MoveLeft);
+                command = new MoveBlockLeftCommand(block);
                 break;
-
             case Key.Right:
-                MoveBlockIfPossible(block.CanMoveRight, block.MoveRight);
+                command = new MoveBlockRightCommand(block);
                 break;
-
             case Key.Down:
-                MoveBlockIfPossible(block.CanMoveDown, block.MoveDown);
+                command = new MoveBlockDownCommand(block);
                 break;
             case Key.Up:
-                MoveBlockIfPossible(block.CanRotate, block.Rotate);
+                command = new RotateBlockCommand(block);
                 break;
             default:
                 return;
         }
-        Game.UpdateBoard(block);
-        Game.PrintBoard();
+        command.Execute();
     }
     
-    private static void MoveBlockIfPossible(Func<bool> canMove, Action moveAction)
-    {
-        if (canMove())
-        {
-            Game.ClearOldCoordinates(block);
-            moveAction();
-            Game.UpdateBoard(block);
-            Game.PrintBoard();
-        }
-    }
 }
