@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,15 +37,17 @@ public static class GameController
             Game.ClearRows();
         } while (!GameOver);
         Game.PrintBoard();
-        window.Dispatcher.Invoke(() =>
-            window.ShowGameOverScreen());
 
     }
 
     public static BlockFactory ChooseRandomBlockFactory()
     {   
         Random random = new Random();
-        int randomNumber = random.Next(0, 7);
+        int numberOfBlockFactoryTypes = Assembly
+            .GetAssembly(typeof(BlockFactory))!
+            .GetTypes().Count(t => t.IsSubclassOf(typeof(BlockFactory)));
+        
+        int randomNumber = random.Next(0, numberOfBlockFactoryTypes);
         switch (randomNumber)
         {
             case 0: return new IShapeBlockFactory();
